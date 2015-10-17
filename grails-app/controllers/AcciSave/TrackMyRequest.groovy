@@ -6,9 +6,9 @@ import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.web.bind.annotation.RestController;
 
 class TrackMyRequest {
-	
+
 	String username
 	String latitude
-	String longtitude
+	String longitude
 	String radius
 }

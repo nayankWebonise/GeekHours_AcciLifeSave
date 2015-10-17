@@ -1,5 +1,6 @@
 var DashBoard = React.createClass({
     componentDidMount: function() {
+        this.connectToSocket();
         var DEFAULT_LAT_LONG = [37.090240, -95.712891],
             DEFAULT_ZOOM = 17;
 
@@ -41,23 +42,46 @@ var DashBoard = React.createClass({
                 layers[0].setLatLng(latlng);
             }
             index += 1;
-        }.bind(this), 1000);
+            this.sendVehicleLocation(carData[0], carData[1]);
+        }.bind(this), 2000);
     },
 
     connectToSocket: function() {
         var userName = 'vijay';
-        var droneInfotopicName = '/topic/vehicle/' + userName;
+        var carInfoTopicName = '/topic/' + userName;
         var socketName = '/myvehicle';
         this.socket = new SockJS(socketName);
         this.stompClient = Stomp.over(this.socket);
         this.stompClient.connect({}, function(frame) {
-            this.stompClient.subscribe(droneInfotopicName, function(data) {
+            this.stompClient.subscribe(carInfoTopicName, function(data) {
                 this.showNotification(data);
             }.bind(this));
         }.bind(this));
     },
 
+    sendVehicleLocation: function(latitude, longitude) {
+        var mapBounds = this.getMapBounds();
+        this.stompClient.send("/app/myvehicle", {}, JSON.stringify({
+            username : 'vijay',
+            latitude : latitude,
+            longitude : longitude,
+            radius: mapBounds.radius
+        }));
+    },
+
+    getMapBounds: function() {
+        var bounds = this.drawnItems._map.getBounds();
+        var radius = bounds._northEast.distanceTo(bounds._southWest) / 2;
+        var center = this.drawnItems._map.getCenter();
+        return {
+            latitude: center.lat,
+            longitude: center.lng,
+            radius: radius
+        };
+    },
+
     showNotification: function() {
+        console.log('Coming.....');
         //show notification here
     },
 

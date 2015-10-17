@@ -2,7 +2,7 @@ package AcciSave
 
 class MyVehicle {
 	String latitude
-	String longtitude
+	String longitude
 	String message
     static constraints = {
     }

@@ -16,28 +16,22 @@ class TrackMyVehicleController {
 	@Autowired
 	SimpMessagingTemplate brokerMessageTemplate
 	TrackMyRequest myRequest
-	ITrackMyVehicleService trackMyVehicleService 
-	
-	
+	ITrackMyVehicleService trackMyVehicleService
+
+
 	@MessageMapping(value = "/myvehicle")
 	public void getTrackDetails(TrackMyRequest myRequest) {
+		println myRequest.username
 		this.myRequest = myRequest
 		sendVehicleDetailstoVehicle()
 	}
-	
+
 	@PostConstruct
 	public void sendVehicleDetailstoVehicle() {
-		def scheduler = new ConcurrentTaskScheduler()
-		
-		scheduler.scheduleAtFixedRate(new Runnable() {
-			 @Override
-			public void run() {
-				if (myRequest != null) {
-					brokerMessageTemplate.convertAndSend("/topic/vehicle/"+myRequest.username,
+		 if (myRequest != null) {
+					brokerMessageTemplate.convertAndSend("/topic/"+myRequest.username,
 							trackMyVehicleService.getTrackDetails(myRequest))
 				}
 			}
-		}, 1000)
-	}
-
 }
+
