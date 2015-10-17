@@ -27,7 +27,7 @@ var FlashMessage = React.createClass({
         var wrapperClass = this.state.message ? this.props.wrapperClass : (this.props.wrapperClass + ' hide');
         return (
             <div className={wrapperClass}>
-              <i></i> <span className="notifyMessage">{this.state.message}</span> <span className="pull-right notifyInfo">{this.state.distance + 'away'}</span>
+              <i></i> <span className="notifyMessage">{this.state.message}</span> <span className="pull-right notifyInfo">{parseFloat(this.state.distance).toFixed(2) + 'm away'}</span>
             </div>
         );
     }

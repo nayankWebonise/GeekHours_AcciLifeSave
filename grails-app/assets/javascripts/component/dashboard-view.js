@@ -5,7 +5,11 @@ var DashBoard = React.createClass({
             messageOne: '',
             messageTwo: '',
             messageThree: '',
-            messageFour: ''
+            messageFour: '',
+            distanceOne: '',
+            distanceTwo: '',
+            distanceThree: '',
+            distanceFour: ''
         };
     },
 
@@ -72,6 +76,7 @@ var DashBoard = React.createClass({
 
     sendVehicleLocation: function(longitude,latitude) {
         var mapBounds = this.getMapBounds();
+        this.currentVehicleLocation = L.latLng(longitude,latitude);
         this.stompClient.send("/app/myvehicle", {}, JSON.stringify({
             username : 'vijay',
             latitude : latitude,
@@ -101,6 +106,10 @@ var DashBoard = React.createClass({
             messageTwo: (data[1] && data[1].length) ? data[1][0].message : '',
             messageThree: (data[2] && data[2].length) ? data[2][0].message : '',
             messageFour: (data[3] && data[3].length) ? data[3][0].message : '',
+            distanceOne: (data[0] && data[0].length) ? L.latLng(data[0][0].longitude, data[0][0].latitude).distanceTo(this.currentVehicleLocation) : '',
+            distanceTwo: (data[1] && data[1].length) ? L.latLng(data[1][0].longitude, data[1][0].latitude).distanceTo(this.currentVehicleLocation) : '',
+            distanceThree: (data[2] && data[2].length) ? L.latLng(data[2][0].longitude, data[2][0].latitude).distanceTo(this.currentVehicleLocation) : '',
+            distanceFour: (data[3] && data[3].length) ? L.latLng(data[3][0].longitude, data[3][0].latitude).distanceTo(this.currentVehicleLocation) : '',
         });
     },
 
@@ -127,10 +136,10 @@ var DashBoard = React.createClass({
     render: function() {
         return (
             <div>
-              <FlashMessage wrapperClass="notification workInProgress clearfix" message={this.state.messageOne}/>
-              <FlashMessage wrapperClass="notification diversion clearfix" message={this.state.messageTwo}/>
-              <FlashMessage wrapperClass="notification speedbreker clearfix" message={this.state.messageThree}/>
-              <FlashMessage wrapperClass="notification slipary clearfix" message={this.state.messageFour}/>
+              <FlashMessage wrapperClass="notification workInProgress clearfix" message={this.state.messageOne} distance={this.state.distanceOne}/>
+              <FlashMessage wrapperClass="notification diversion clearfix" message={this.state.messageTwo} distance={this.state.distanceTwo}/>
+              <FlashMessage wrapperClass="notification speedbreker clearfix" message={this.state.messageThree} distance={this.state.distanceThree}/>
+              <FlashMessage wrapperClass="notification slipary clearfix" message={this.state.messageFour} distance={this.state.distanceFour}/>
               <div id="map">
               </div>
                <div className="skipWrapper">
