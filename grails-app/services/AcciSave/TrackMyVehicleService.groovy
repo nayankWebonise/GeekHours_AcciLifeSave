@@ -11,7 +11,7 @@ class TrackMyVehicleService implements ITrackMyVehicleService  {
 		def vehicle = new ArrayList()
 		if (myRequest != null) {
 			String geoRadiusScript = "return redis.call('georadius', KEYS[1], ARGV[1], ARGV[2], ARGV[3], ARGV[4], ARGV[5])"
-			def geoRadiusScriptKeys = new ArrayList<String>() << "latas"
+			def geoRadiusScriptKeys = new ArrayList<String>() << "Area"
 			Object[] geoRadiusScriptArgs = [ myRequest.latitude, myRequest.longtitude,
 					'100', 'm', "withcoordinates" ]
 
