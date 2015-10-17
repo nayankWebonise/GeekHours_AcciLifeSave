@@ -143,7 +143,7 @@ var DashBoard = React.createClass({
               <div id="map">
               </div>
                <div className="skipWrapper">
-                <a className="btn btn-primary" href="/">Stop Ride</a>
+                <a className="btn btn-primary" href="/myRides">Stop Ride</a>
               </div>
             </div>
         );

@@ -9,6 +9,7 @@ class UrlMappings {
 
         "/"(view:"/flash")
         "/dashboard"(view:"/dashboard")
+        "/myRides"(view:"/myRides")
         "500"(view:'/error')
         "404"(view:'/notFound')
     }

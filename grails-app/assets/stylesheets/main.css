@@ -37,7 +37,7 @@ body{
 .skipWrapper{
     width: 100%;
     position:absolute;
-    bottom:0;
+    /*bottom:0;*/
 }
 
 .skipWrapper .btn-primary,
@@ -214,6 +214,97 @@ body.mapBg{
     margin-top: 20px;
 }
 
+.myRides{
+    background: #ffffff;
+}
+
+.myRidesWrapper h3{
+    background: #222222;
+    color: #ffffff;
+    font-size: 36px;
+    margin: 0;
+    line-height: 100px;
+    padding-left: 20px;
+    font-family: 'Roboto', sans-serif;
+    font-weight: 400px;
+}
+
+.myRidesListing .locationIcon {
+    width: 132px;
+    height: 132px;
+    text-align: center;
+    background: #dddddd;
+}
+
+.locationIcon i{
+    background:url(../img/sprite.png) -48px -1px no-repeat;
+    width: 34px;
+    height: 45px;
+    display: inline-block;
+    margin-top: 35%;
+
+}
+
+.myRidesListing li{
+    border-bottom:solid 1px #cccccc;
+    padding: 20px 0;
+}
+
+.myRidesListing .rideInfo {
+    width: 50%;
+    margin:0 30px 0 20px;
+}
+
+.myRidesListing .rideInfo h2{
+    font-family: 'Open Sans', sans-serif;
+    font-weight: 300;
+    margin-bottom: 20px;
+}
+
+.rideInfo span{
+    color: #222222;
+    font-size: 16px;
+    margin:0 30px 0 0;
+}
+
+.shareRide{
+    margin-top: 30px;
+}
+
+.shareRide i{
+    background:url(../img/sprite.png) -100px -1px no-repeat;
+    width: 45px;
+    height: 45px;
+    display: inline-block;
+}
+
+ul#menu li {
+    position:relative;
+    list-style-type:none;
+    float: left;
+    padding:0px;
+    width: 125px;
+    height: 25px;
+    border:none;
+    text-align: left;
+}
+ul#sub1 {
+    position: absolute;
+    left: -40px;
+    width: 125px;
+    visibility: hidden;
+    top: 0;
+    margin-top: 50px;
+    padding: 10px;
+    margin-left: 0;
+    border: solid 2px #ccc;
+    background: #ffffff;
+    z-index: 5;
+}
+ul#menu li:hover #sub1 {
+    visibility:visible;
+}
+
 
 @media only screen and (max-width : 480px) {
     .myRidesListing .locationIcon{
@@ -226,6 +317,10 @@ body.mapBg{
     }
     .myRidesListing .shareRide{
         width: 90%;
-        margin: 0 5%;
+        margin: 30px 5%;
+    text-align: center;
+    }
+    .locationIcon i{
+        margin-top: 15%;
     }
 }
