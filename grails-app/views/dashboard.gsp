@@ -1,6 +1,7 @@
 <!doctype html>
 <html>
     <head>
+      <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
       <link href="https://api.mapbox.com/mapbox.js/v2.2.2/mapbox.css" rel='stylesheet' />
       <link href="https://api.mapbox.com/mapbox.js/plugins/leaflet-draw/v0.2.2/leaflet.draw.css" rel='stylesheet' />
       <asset:stylesheet src="application.css"/>

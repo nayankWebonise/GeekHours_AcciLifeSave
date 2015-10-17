@@ -4,4 +4,5 @@ class MyVehicle {
 	String latitude
 	String longitude
 	String message
+    String messageType
 }

@@ -21,7 +21,6 @@ class TrackMyVehicleController {
 
 	@MessageMapping(value = "/myvehicle")
 	public void getTrackDetails(TrackMyRequest myRequest) {
-		println myRequest.username
 		this.myRequest = myRequest
 		sendVehicleDetailstoVehicle()
 	}

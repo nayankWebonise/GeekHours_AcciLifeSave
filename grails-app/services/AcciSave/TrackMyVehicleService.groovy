@@ -13,22 +13,20 @@ class TrackMyVehicleService implements ITrackMyVehicleService  {
 		if (myRequest != null) {
 			String geoRadiusScript = "return redis.call('georadius', KEYS[1], ARGV[1], ARGV[2], ARGV[3], ARGV[4], ARGV[5])"
 			def geoRadiusScriptKeys = new ArrayList<String>() << "Area"
-			Object[] geoRadiusScriptArgs = [ myRequest.latitude, myRequest.longitude,
-					myRequest.radius, 'm', "withdistance" ]
+			Object[] geoRadiusScriptArgs = [ myRequest.latitude , myRequest.longitude ,
+					'100', 'm', "withcoordinates" ]
 
 			JedisWrapper jedisWrapper = new JedisWrapper(geoRadiusScript, String.class, geoRadiusScriptKeys,
 					geoRadiusScriptArgs)
 			def scriptOutput = jedisWrapper.executeLuaScript()
 
-            println scriptOutput
 			scriptOutput.eachWithIndex { redisobject, i ->
 				def myVehicle = new MyVehicle()
 				myVehicle.with {
-					(message,latitude,longitude) = [getCustomMessage(redisobject.get(0).toString()),
+					(message,latitude,longitude,messageType) = [getCustomMessage(redisobject.get(0).toString()),
 					  Double.parseDouble((redisobject.get(1)).get(0).toString()),
-					  Double.parseDouble((redisobject.get(1)).get(1).toString())]
+					  Double.parseDouble((redisobject.get(1)).get(1).toString()),redisobject.get(0).toString()]
 			}
-			println vehicle
 			vehicle << myVehicle
 		}
 	}

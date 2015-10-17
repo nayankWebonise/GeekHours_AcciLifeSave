@@ -7,7 +7,8 @@ class UrlMappings {
             }
         }
 
-        "/"(view:"/dashboard")
+        "/"(view:"/flash")
+        "/dashboard"(view:"/dashboard")
         "500"(view:'/error')
         "404"(view:'/notFound')
     }

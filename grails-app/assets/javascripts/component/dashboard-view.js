@@ -1,4 +1,14 @@
+//= require ./flash-message-view
 var DashBoard = React.createClass({
+    getInitialState: function() {
+        return {
+            messageOne: '',
+            messageTwo: '',
+            messageThree: '',
+            messageFour: ''
+        };
+    },
+
     componentDidMount: function() {
         this.connectToSocket();
         var DEFAULT_LAT_LONG = [37.090240, -95.712891],
@@ -54,12 +64,13 @@ var DashBoard = React.createClass({
         this.stompClient = Stomp.over(this.socket);
         this.stompClient.connect({}, function(frame) {
             this.stompClient.subscribe(carInfoTopicName, function(data) {
+                var data = JSON.parse(data.body);
                 this.showNotification(data);
             }.bind(this));
         }.bind(this));
     },
 
-    sendVehicleLocation: function(latitude, longitude) {
+    sendVehicleLocation: function(longitude,latitude) {
         var mapBounds = this.getMapBounds();
         this.stompClient.send("/app/myvehicle", {}, JSON.stringify({
             username : 'vijay',
@@ -80,9 +91,17 @@ var DashBoard = React.createClass({
         };
     },
 
-    showNotification: function() {
-        console.log('Coming.....');
-        //show notification here
+    showNotification: function(data) {
+        data = _.chain(data).map(function(notification) {
+            notification.messageType = notification.messageType.substring(0,2);
+            return notification;
+        }).groupBy('messageType').toArray().value();
+        this.setState({
+            messageOne: (data[0] && data[0].length) ? data[0][0].message : '',
+            messageTwo: (data[1] && data[1].length) ? data[1][0].message : '',
+            messageThree: (data[2] && data[2].length) ? data[2][0].message : '',
+            messageFour: (data[3] && data[3].length) ? data[3][0].message : '',
+        });
     },
 
     getGeoJson: function(carData) {
@@ -95,9 +114,9 @@ var DashBoard = React.createClass({
             properties: {
                 title: 'My Car',
                 icon: {
-                    iconUrl: '/assets/car.png',
-                    iconSize: [30, 30], // size of the icon
-                    iconAnchor: [20, 20], // point of the icon which will correspond to marker's location
+                    iconUrl: '/assets/red-car.jpg',
+                    iconSize: [40, 40], // size of the icon
+                    iconAnchor: [25, 25], // point of the icon which will correspond to marker's location
                     popupAnchor: [0, -25], // point from which the popup should open relative to the iconAnchor
                     className: 'dot'
                 }
@@ -107,7 +126,16 @@ var DashBoard = React.createClass({
 
     render: function() {
         return (
-            <div id="map">
+            <div>
+              <FlashMessage wrapperClass="notification workInProgress clearfix" message={this.state.messageOne}/>
+              <FlashMessage wrapperClass="notification diversion clearfix" message={this.state.messageTwo}/>
+              <FlashMessage wrapperClass="notification speedbreker clearfix" message={this.state.messageThree}/>
+              <FlashMessage wrapperClass="notification slipary clearfix" message={this.state.messageFour}/>
+              <div id="map">
+              </div>
+               <div className="skipWrapper">
+                <a className="btn btn-primary" href="/">Stop Ride</a>
+              </div>
             </div>
         );
     },

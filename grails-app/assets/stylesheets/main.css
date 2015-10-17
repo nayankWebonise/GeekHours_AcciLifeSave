@@ -1,7 +1,231 @@
-body{
-    margin: 0;
-}
 .leaflet-container{
     width:100%;
     height: 100vh;
+}
+
+@import url(https://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700);
+@import url(https://fonts.googleapis.com/css?family=Roboto:400,700,100);
+body{
+    font-family: 'Open Sans', sans-serif;
+    color:red;
+}
+.spashPage{
+    background:url('/assets/splash-bg.jpg') center 0 no-repeat;
+}
+
+.slider{
+    position:absolute;
+    top:0;
+    bottom: 0;
+    right: 0;
+    left: 0;
+    margin: auto;
+    width: 320px;
+    height: 260px;
+
+}
+.slide{
+    width: 320px;
+    color:#ffffff;
+}
+
+.sliderText p{
+    margin-top:10px;
+    font-size:20px;
+}
+
+.skipWrapper{
+    width: 100%;
+    position:absolute;
+    bottom:0;
+}
+
+.skipWrapper .btn-primary,
+.skipWrapper .btn-primary:focus{
+    background:#ff4c2e;
+    width: 100%;
+    border-radius:0;
+    padding:20px 0;
+    text-align:center;
+    border:solid 1px #ff4c2e;
+    outline:none;
+    font-weight: 300;
+    font-size:30px;
+    text-transform: uppercase;
+    font-family: 'Roboto', sans-serif;
+}
+
+body.mapBg{
+    background:url(../img/map-bg.jpg) center 0 no-repeat;
+}
+
+.notification{
+    background: #ffffff;
+    padding:10px 20px;
+    line-height: 30px;
+    box-shadow: 0px 1px 5px 0px #222;
+    margin-bottom: 10px;
+}
+
+.notification i{
+    background:url(../img/sprite.png) center 0 no-repeat;
+    width:32px;
+    height: 32px;
+    display: inline-block;
+    float: left;
+}
+
+.workInProgress i{
+    background-position:-2px -5px;
+}
+
+.diversion i{
+    background-position:-2px -45px;
+}
+
+.speedbreker i{
+    background-position:-2px -85px;
+}
+
+.slipary i{
+    background-position:-50px -53px;
+}
+
+.notification .notifyMessage{
+    font-size: 18px;
+    color: #222222;
+    font-weight: 300;
+    margin-left: 20px;
+    width: 60%;
+    float: left;
+}
+
+.workInProgress .notifyInfo,
+.diversion .notifyInfo,
+.speedbreker .notifyInfo,
+.slipary .notifyInfo  {
+    font-weight: 600;
+    font-size: 18px;
+    color: #00ff9c;
+    font-family: 'Roboto', sans-serif;
+}
+
+.diversion .notifyInfo {
+    color: #fda11e;
+}
+
+.speedbreker .notifyInfo {
+    color: #ff3300;
+}
+
+.slipary .notifyInfo {
+    color: #000;
+}
+
+.popupWrap{
+    padding: 40px;
+    text-align: center;
+    background: #ffffff;
+    color: #222222;
+    margin:20px 0;
+}
+
+.popupWrap p {
+    font-size: 25px;
+    font-weight: 300;
+    margin-top: 15px;
+}
+
+.recordRide i{
+    background:url(../img/sprite.png) -19px -257px no-repeat;
+    height: 107px;
+    width: 107px;
+    display: inline-block;
+}
+
+.btn-primary,
+.btn-primary:focus,
+.btn-primary:active,
+.btn-secondary {
+        background:#ff4c2e;
+        border-radius: 3px;
+        border:none;
+        padding:15px 25px;
+        font-weight: bold;
+        border:solid 3px #ff4c2e;
+        outline: none;
+        box-shadow:none;
+}
+
+.btn-secondary:focus,
+.btn-secondary{
+    background: #ffffff;
+    color: #ff4c2e;
+    border:solid 3px #dddddd;
+    margin-left: 30px;
+    outline: none;
+}
+
+.popupBtnWrapper{
+    margin-top: 40px;
+}
+
+.myRides{
+    background: #ffffff;
+}
+
+.myRidesWrapper h3{
+    background: #222222;
+    color: #ffffff;
+    font-size: 36px;
+    margin: 0;
+    line-height: 100px;
+    padding-left: 20px;
+    font-family: 'Roboto', sans-serif;
+    font-weight: 400px;
+}
+
+.myRidesListing .locationIcon {
+    width: 132px;
+    height: 132px;
+    text-align: center;
+    background: #dddddd;
+}
+
+.locationIcon i{
+    background:url(../img/sprite.png) -111px -11px no-repeat;
+    width: 34px;
+    height: 45px;
+    display: inline-block;
+}
+
+.myRidesListing .rideInfo {
+    width: 50%;
+    margin-left: 20px;
+}
+
+.rideInfo span{
+    color: #222222;
+    font-size: 16px;
+    margin-right: 20px;
+}
+
+.shareRide{
+    margin-top: 20px;
+}
+
+
+@media only screen and (max-width : 480px) {
+    .myRidesListing .locationIcon{
+        width: 90%;
+        margin: 0 5%;
+    }
+    .myRidesListing .rideInfo{
+        width: 90%;
+        margin: 0 5%;
+    }
+    .myRidesListing .shareRide{
+        width: 90%;
+        margin: 0 5%;
+    }
 }
