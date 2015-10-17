@@ -2,21 +2,31 @@ var DashBoard = React.createClass({
     componentDidMount: function() {
         var DEFAULT_LAT_LONG = [37.090240, -95.712891],
             DEFAULT_ZOOM = 17;
+
         L.mapbox.accessToken = 'pk.eyJ1IjoiYXNsYXRlciIsImEiOiItYTNLNkkwIn0.uf1rwYpeylp32z8EVOjXpg';
         this.map = L.mapbox.map('map', 'mapbox.streets', {attributionControl: false}).
             setView(DEFAULT_LAT_LONG, DEFAULT_ZOOM).
             addControl(L.mapbox.geocoderControl('mapbox.places'));
         L.control.scale({ position: 'bottomleft' }).addTo(this.map);
         this.drawnItems = L.mapbox.featureLayer().addTo(this.map);
+
         this.drawnItems.on('layeradd', function(e) {
             var marker = e.layer,
                 feature = marker.feature;
             marker.setIcon(L.icon(feature.properties.icon));
         });
 
+        window.onbeforeunload = function(event) {
+            if (this.stompClient) {
+                this.stompClient.disconnect();
+                this.socket.close();
+            }
+        }.bind(this);
+
         var carData = this.getCarData(0);
         var geoJson = this.getGeoJson(carData);
         this.drawnItems.setGeoJSON(geoJson);
+        this.map.setView(carData.reverse());
         this.showCar();
     },
 
@@ -32,6 +42,23 @@ var DashBoard = React.createClass({
             }
             index += 1;
         }.bind(this), 1000);
+    },
+
+    connectToSocket: function() {
+        var userName = 'vijay';
+        var droneInfotopicName = '/topic/vehicle/' + userName;
+        var socketName = '/myvehicle';
+        this.socket = new SockJS(socketName);
+        this.stompClient = Stomp.over(this.socket);
+        this.stompClient.connect({}, function(frame) {
+            this.stompClient.subscribe(droneInfotopicName, function(data) {
+                this.showNotification(data);
+            }.bind(this));
+        }.bind(this));
+    },
+
+    showNotification: function() {
+        //show notification here
     },
 
     getGeoJson: function(carData) {
